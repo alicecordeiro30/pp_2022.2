@@ -1,0 +1,614 @@
+1-
+#include <stdio.h>
+
+int main()
+{
+   int i, multiplo;
+
+   for(i=1; i<=5; i++){
+       multiplo = 3*i;
+       printf("%d\n", multiplo);
+   }
+
+    return 0;
+}
+
+2-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int numero, x;
+
+    numero = 0;
+
+    for (x = 1 ; x <= 100 ; x++){
+        numero = numero + 1;
+       printf("%d ", numero);
+    }
+    
+    printf("\n");
+    x = 1;
+    numero = 0;
+    
+    while (x <= 100){
+            x++;
+        numero = numero + 1;
+    printf("%d ", numero);
+    }
+
+    printf("\n");
+    x=1;
+    numero = 0;
+    
+    do {
+        x++;
+        numero = numero + 1;
+        printf("%d ", numero);
+    } while (x <= 100);
+
+
+    return 0;
+}
+
+3-
+#include <stdio.h>
+
+int main()
+{
+    int i=10;
+
+    while(i>=0){
+        printf("%d\n", i);
+        i--;
+    }
+    printf("FIM!");
+
+    return 0;
+}
+
+4-
+#include <stdio.h>
+
+int main()
+{
+    int i;
+
+    for(i=0; i<=100000; i= i+1000){
+        printf("%d\n", i);
+    }
+
+    return 0;
+}
+
+5-
+#include <stdio.h>
+
+int main()
+{
+    int i, num, soma=0;
+
+    for(i=1; i<=10; i++){
+        printf("Digite um valor: ");
+        scanf("%d", &num);
+        soma+=num;
+    }
+     printf("Soma: %d\n", soma);
+
+    return 0;
+}
+
+6-
+#include <stdio.h>
+
+int main()
+{
+    int i, num, soma;
+    float media;
+
+    for(i=1; i<=10; i++){
+        printf("Digite um valor: ");
+        scanf("%d", &num);
+
+        soma+=num;
+        media = soma/10;
+    }
+    printf("Media: %f\n", media);
+
+    return 0;
+}
+
+7-
+#include <stdio.h>
+
+int main()
+{
+    int i, num, soma;
+    float media;
+
+    for(i=1; i<=10; i++){
+        printf("Digite um valor: ");
+        scanf("%d", &num);
+        if(num>0){
+            soma+=num;
+            media = soma/10;
+        }
+        else
+        printf("Numero invalido!\n");
+    }
+    printf("Media: %f\n", media);
+
+    return 0;
+}
+
+8-
+#include <stdio.h>
+#include <math.h>
+
+int main (){
+    int i, n = 1, c = 10, nd, M = 0, m = 0;
+
+    for (i = 1; i <= c; i++){
+        printf("Digite %d o numero:\n", n);
+        scanf("%d", &nd);
+
+        if (i == 1){
+            M = m = nd;
+        }
+        if (nd > M){
+            M = nd;
+        }
+        if (nd < m){
+            m = nd;
+        }
+        if (i == c){
+            break;
+        }
+        n++;
+
+    }
+    printf("O maior numero apresentado eh: %d \nO menor numero apresentado eh: %d \n", M, m); 
+
+return 0;
+}
+
+
+9-
+#include <stdio.h>
+
+int main()
+{
+    int i, num;
+
+    printf("Digite um numero: ");
+    scanf("%d", &num);
+
+    for(i=0; i<num; i++){
+        if(i%2==1){
+            printf("%d\n", i);
+        }
+    }
+
+    return 0;
+}
+
+10-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int num, i, soma;
+    num = 0;
+    soma = 0;
+
+    for (i = 1 ; i <= 50 ; i++){
+        num = num + 2;
+        soma = num + soma;
+        }
+        printf ("%d ", soma);
+
+    return 0;
+}
+
+11-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, num;
+
+    printf("Digite um numero: ");
+    scanf("%d", &num);
+
+    for (i=0; i<=num; i++){
+        printf("%d\n", i);
+    }
+
+
+    return 0;
+}
+
+12-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int x;
+    printf("Digite um numero: ");
+    scanf("%d", &x);
+
+    int i = 1;
+    int sum = 0;
+    while (i < x) {
+        if (x % i == 0) {
+            sum += i;
+        }
+        i++;
+    }
+
+    printf("A soma dos divisores de %d e %d\n", x, sum);
+
+    return 0;
+}
+
+13-
+#include <stdio.h>
+
+int main()
+{
+    int i, soma=0;
+
+    for(i=1; i<=1000; i++){
+        if(i%3==0 || i%5==0){
+            soma+=i;
+        }
+    }
+    printf("%d\n", soma);
+
+
+    return 0;
+}
+
+14-
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    int i, x, d1, d2;
+
+    printf("Numero de vezes que os dados serao jogados: \n");
+    scanf("%d", &x);
+
+    for(i=1; i<=x; i++){
+        d1 = rand() % 6;
+        d2 = rand() % 6;
+    }
+
+    printf("d1 = %d\n", d1);
+    printf("d2 = %d\n", d2);
+    if(d1>d2){
+        printf("%d maior que %d", d1, d2);
+    }
+    else if(d2>d1){
+        printf("%d maior que %d", d2, d1);
+    }
+    else
+        printf("%d igual a %d", d1, d2);
+
+    return 0;
+}
+
+15-
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+int main()
+{
+    int i=0;
+    int x, valor, quad, cub;
+    float raiz;
+
+    printf("Digite quantos valores quer ler: \n");
+    scanf("%d", &x);
+
+    while(i<x){
+        printf("Digite o valor \n");
+        scanf("%d", &valor);
+
+        quad = valorvalor;
+        cub = valorvalor*valor;
+        raiz = sqrt(valor);
+
+         printf("%d\n", quad);
+          printf("%d\n", cub);
+           printf("%.2f\n", raiz);
+
+           i++;
+
+    }
+
+    return 0;
+}
+
+16-
+#include <stdio.h>
+#include <time.h>
+
+int main () {
+    float a, s, m, d, x, y;
+    int z;
+do{
+    do{
+        printf("Adicao (opcao 1)\nSubtracao (opcao 2)\nMultiplicacao (opcao 3)\nDivisao (opcao 4)\nSaida (opcao 5)\n");
+        scanf("%d", &z);
+        
+        if ((z != 1)&&(z != 2)&&(z != 3)&&(z != 4)&&(z != 5)){
+            printf("INVALIDO");
+        }
+    }
+
+    while ((z < 1 && z > 5));
+        if (z == 1){
+            printf("Digite dois valores:\n");
+            scanf("%f %f", &x, &y);
+            a = x + y;
+            printf("A soma eh:\n %.2f \n", a);
+        }
+        if (z == 2){
+            printf("Digite dois valores:\n");
+            scanf("%f %f", &x, &y);
+            if (x > y){
+                s = x - y;
+                printf("A subtracao eh:\n %.2f \n", s);
+            }
+            else{
+                s = y - x;
+                printf("A subtracao eh:\n %.2f \n", s);
+            }
+        }
+        if (z == 3){
+            printf("Digite dois valores:\n");
+            scanf("%f %f", &x, &y);
+            m = x * y;
+            printf("A multiplicacao eh:\n %.2f \n", m);
+        }
+        if (z == 4){
+            printf("Digite dois valores:\n");
+            scanf("%f %f", &x, &y);
+            if (x > y){
+                d = x / y;
+                printf("A divisao eh:\n %.2f \n", d);
+            }
+            else{
+                s = y / x;
+                printf("A divisao eh:\n %.2f \n", d);
+            }
+        }
+        if (z == 5){
+            printf("SAIDA\n");
+        }
+}
+while (z != 5);
+
+return 0;
+}
+17-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main () {
+
+    int tempo = 0;
+    float chico, ze;
+    chico = 1.5;
+    ze = 1.1;
+
+    do{
+        chico = chico + 0.02;
+        ze = ze + 0.03;
+        tempo ++;
+    }while(chico >= ze);
+
+    printf("Ze ultrapassou a altura de Chico em %d anos\n",tempo);
+ 
+    
+    return 0;
+}
+
+18-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main () {
+
+    int anos;
+    float sal, novo;
+    
+    sal = 2000;
+    sal = sal * 1.015;
+    for(anos = 1997; anos <= 2022; anos++){
+        novo = sal * 2;
+        sal = novo;
+    }
+    printf("O novo salario eh: %.2fR$\n", novo);
+
+    return 0;
+}
+19-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {   
+    int quantidade;
+    int cem, cinquenta, vinte, dez, cinco, dois, um;
+    
+    cem = 0;
+    cinquenta = 0;
+    vinte = 0;
+    dez = 0;
+    cinco = 0;
+    dois = 0;
+    um = 0;
+    
+    printf("Digite o valor de saque: \n");
+    scanf("%d",&quantidade);
+    if(quantidade >= 100){
+        do{
+            cem = cem + 1;
+            quantidade = quantidade - 100;
+        }while(quantidade >= 100);
+    }
+    if(quantidade >= 50){
+        do{
+            cinquenta = cinquenta + 1;
+            quantidade = quantidade - 50;
+        }while(quantidade >= 50);
+    }
+    if(quantidade >= 20){
+        do{
+            vinte = vinte + 1;
+            quantidade = quantidade - 20;
+        }while(quantidade >= 20);
+    }
+    if(quantidade >= 10){
+        do{
+            dez = dez + 1;
+            quantidade = quantidade - 10;
+        }while(quantidade >= 10);
+    }
+    if(quantidade >= 5){
+        do{
+            cinco = cinco + 1;
+            quantidade = quantidade - 5;
+        }while(quantidade >= 5);
+    }
+    if(quantidade >= 2){
+        do{
+            dois = dois + 1;
+            quantidade = quantidade - 2;
+        }while(quantidade >= 2);
+    }
+    if(quantidade >= 1){
+        do{
+            um = um + 1;
+            quantidade = quantidade - 1;
+        }while(quantidade >= 1);
+    }
+    
+    printf("Notas do saque: \n");
+    printf("%d 100 reais\n",cem);
+    printf("%d 50 reais\n",cinquenta);
+    printf("%d 20 reais\n",vinte);
+    printf("%d 10 reais\n",dez);
+    printf("%d 5 reais\n",cinco);
+    printf("%d 2 reais\n",dois);
+    printf("%d 1 real\n",um);
+    
+    return 0;
+}
+20-
+
+21-
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main() {
+    int x, y;
+    printf("Digite dois numeros inteiros: ");
+    scanf("%d %d", &x, &y);
+    int i = x;
+    int count = 0;
+
+    while (i <= y) {
+        int j = 1;
+        int divisors = 0;
+        while (j <= i) {
+            if (i % j == 0) {
+                divisors++;
+            }
+            j++;
+        }
+        if (divisors == 2) {
+            count++;
+        }
+        i++;
+    }
+    printf("Existem %d numeros primos entre %d e %d\n", count, x, y);
+
+    return 0;
+}
+
+22-
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int mn()
+{
+    int contador1, contador2, x, y, z, n1, n2, n3;  
+
+    n1 = 0;
+    contador1 = 999;
+
+    for (x = contador1 * contador1; x > n1; x = contador1 * contador1){
+        for (contador2 = contador1; x > n1; x = contador1 * contador2){
+            z = 0;
+            for (y = x; y > 0; y /= 10){
+                z = z * 10 + y % 10;
+            }
+            if (x == z){
+                    n1 = x;
+                    n2 = contador1;
+                    n3 = contador2;
+            }
+            contador2--;
+        }
+        contador1--;
+    }
+    printf(": %d,  por %d vezes %d\n", n1, n2, n3);
+    
+    return 0;
+}
+
+23-
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    
+    int linhas, i, j, z = 1;
+    printf("Digite um numero inteiro: \n");
+    scanf("%d",&linhas);
+    
+    if(linhas >= 0){
+        for(i = 1; i <= linhas; i++){
+            for(j = 1; j <= i; j++){
+                printf("%d ",z);
+                z = z + 1;
+            }
+            printf("\n");
+        }
+    }
+    
+    else{
+        printf("Valor invalido");
+    } 
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
