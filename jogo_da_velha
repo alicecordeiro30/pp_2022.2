@@ -1,0 +1,346 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+#include <string.h>
+
+#define ARQUIVO_RANKING "ranking.txt"
+#define MAX_JOGADORES 100
+#define TAM_NOME 50
+
+char tabuleiro[3][3];
+
+struct Jogador {
+    char nome[TAM_NOME];
+    int vitorias;
+    int derrotas;
+};
+
+struct Jogador jogadores[MAX_JOGADORES];
+int numJogadores = 0;
+
+int exibirMenuPrincipal() {
+    int opcao;
+
+    printf("\n\n");
+    printf("\xDA");
+    for (int i = 0; i < 30; i++) {
+        printf("\xC4");
+    }
+    printf("\xBF\n");
+
+    printf("\xB3         Menu Inicial         \xB3\n");
+
+    printf("\xC3");
+    for (int i = 0; i < 30; i++) {
+        printf("\xC4");
+    }
+    printf("\xB4\n");
+
+    printf("\xB3     Selecione uma opcao      \xB3\n");
+    printf("\xB3 1. Jogar                     \xB3\n");
+    printf("\xB3 2. Ranking                   \xB3\n");
+    printf("\xB3 3. Sobre                     \xB3\n");
+    printf("\xB3 4. Sair                      \xB3\n");
+
+    printf("\xC0");
+    for (int i = 0; i < 30; i++) {
+        printf("\xC4");
+    }
+    printf("\xD9\n");
+
+    printf("Opcao: ");
+    scanf("%d", &opcao);
+
+    return opcao;
+}
+
+void imprimirTabuleiro(char tabuleiro[3][3]) {
+    printf("     1   2   3  \n");
+    printf("   +---+---+---+\n");
+    for (int i = 0; i < 3; i++) {
+        printf(" %d |", i + 1);
+        for (int j = 0; j < 3; j++) {
+            printf(" %c |", tabuleiro[i][j]);
+        }
+        printf("\n");
+        printf("   +---+---+---+\n");
+    }
+}
+
+int verificarVitoria(char tabuleiro[3][3], char jogador) {
+    // Verificar linhas
+    for (int i = 0; i < 3; i++) {
+        if (tabuleiro[i][0] == jogador && tabuleiro[i][1] == jogador && tabuleiro[i][2] == jogador)
+            return 1;
+    }
+
+    // Verificar colunas
+    for (int j = 0; j < 3; j++) {
+        if (tabuleiro[0][j] == jogador && tabuleiro[1][j] == jogador && tabuleiro[2][j] == jogador)
+            return 1;
+    }
+
+    // Verificar diagonais
+    if (tabuleiro[0][0] == jogador && tabuleiro[1][1] == jogador && tabuleiro[2][2] == jogador)
+        return 1;
+
+    if (tabuleiro[0][2] == jogador && tabuleiro[1][1] == jogador && tabuleiro[2][0] == jogador)
+        return 1;
+
+    return 0;
+}
+
+void salvarRanking() {
+    FILE* arquivo = fopen(ARQUIVO_RANKING, "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int i = 0; i < numJogadores; i++) {
+        fprintf(arquivo, "%s %d %d\n", jogadores[i].nome, jogadores[i].vitorias, jogadores[i].derrotas);
+    }
+
+    fclose(arquivo);
+}
+
+void atualizarRanking(char* nomeVencedor, char* nomePerdedor) {
+    int indiceVencedor = -1;
+    int indicePerdedor = -1;
+
+    for (int i = 0; i < numJogadores; i++) {
+        if (strcmp(jogadores[i].nome, nomeVencedor) == 0) {
+            indiceVencedor = i;
+        }
+        if (strcmp(jogadores[i].nome, nomePerdedor) == 0) {
+            indicePerdedor = i;
+        }
+    }
+
+    if (indiceVencedor != -1) {
+        jogadores[indiceVencedor].vitorias++;
+    } else {
+        strcpy(jogadores[numJogadores].nome, nomeVencedor);
+        jogadores[numJogadores].vitorias = 1;
+        jogadores[numJogadores].derrotas = 0;
+        numJogadores++;
+    }
+
+    if (indicePerdedor != -1) {
+        jogadores[indicePerdedor].derrotas++;
+    } else {
+        strcpy(jogadores[numJogadores].nome, nomePerdedor);
+        jogadores[numJogadores].vitorias = 0;
+        jogadores[numJogadores].derrotas = 1;
+        numJogadores++;
+    }
+
+    salvarRanking(); // Salvar o ranking atualizado no arquivo
+}
+
+void exibirRanking() {
+
+      FILE* arquivo = fopen(ARQUIVO_RANKING, "r");
+    if (arquivo != NULL) {
+        while (fscanf(arquivo, "%s %d %d", jogadores[numJogadores].nome,
+                      &jogadores[numJogadores].vitorias, &jogadores[numJogadores].derrotas) == 3) {
+            numJogadores++;
+            if (numJogadores >= MAX_JOGADORES) {
+                break;
+            }
+        }
+        fclose(arquivo);
+    }
+    
+    for (int i = 0; i < numJogadores - 1; i++) {
+        for (int j = 0; j < numJogadores - i - 1; j++) {
+            if (jogadores[j].vitorias < jogadores[j + 1].vitorias) {
+                struct Jogador temp = jogadores[j];
+                jogadores[j] = jogadores[j + 1];
+                jogadores[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("\n\n");
+    printf("\xDA");
+    for (int i = 0; i < 46; i++) {
+        printf("\xC4");
+    }
+    printf("\xBF\n");
+
+    printf("\xB3                   Ranking                    \xB3\n");
+
+    printf("\xC3");
+    for (int i = 0; i < 46; i++) {
+        printf("\xC4");
+    }
+    printf("\xB4\n");
+
+    printf("\xB3  Nome           Vitorias       Derrotas      \xB3\n");
+
+    printf("\xC3");
+    for (int i = 0; i < 46; i++) {
+        printf("\xC4");
+    }
+    printf("\xB4\n");
+
+    for (int i = 0; i < numJogadores; i++) {
+        printf("\xB3  %-15s %-13d %-9d     \xB3\n", jogadores[i].nome, jogadores[i].vitorias, jogadores[i].derrotas);
+    }
+
+    printf("\xC0");
+    for (int i = 0; i < 46; i++) {
+        printf("\xC4");
+    }
+    printf("\xD9\n");
+}
+
+void reiniciarJogo() {
+    // Reinicializar o tabuleiro com espaços em branco
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            tabuleiro[i][j] = ' ';
+        }
+    }
+}
+
+void jogar() {
+    char nomeJogador[TAM_NOME];
+    printf("Digite seu nome: ");
+    scanf("%s", nomeJogador);
+
+    char tabuleiro[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
+    int linha, coluna;
+    char jogador = 'X';
+    srand(time(NULL));
+
+    while (1) {
+        imprimirTabuleiro(tabuleiro);
+
+        if (jogador == 'X') {
+            printf("Vez do jogador %s (X)\n", nomeJogador);
+            printf("Digite a linha: ");
+            scanf("%d", &linha);
+            printf("Digite a coluna: ");
+            scanf("%d", &coluna);
+        } else {
+            printf("Vez do computador (O)\n");
+            linha = rand() % 3 + 1;
+            coluna = rand() % 3 + 1;
+            sleep(1);
+        }
+
+        if (linha < 1 || linha > 3 || coluna < 1 || coluna > 3 || tabuleiro[linha - 1][coluna - 1] != ' ') {
+            printf("Jogada invalida! Tente novamente.\n");
+            continue;
+        }
+
+        tabuleiro[linha - 1][coluna - 1] = jogador;
+
+        if (verificarVitoria(tabuleiro, jogador)) {
+            imprimirTabuleiro(tabuleiro);
+            if (jogador == 'X') {
+                printf("Parabens, %s! Voce venceu!\n", nomeJogador);
+                atualizarRanking(nomeJogador, "Computador");
+            } else {
+                printf("O computador venceu! Tente novamente.\n");
+                atualizarRanking("Computador", nomeJogador);
+            }
+            break;
+        }
+
+        if (jogador == 'X') {
+            jogador = 'O';
+        } else {
+            jogador = 'X';
+        }
+
+        int empate = 1;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tabuleiro[i][j] == ' ') {
+                    empate = 0;
+                    break;
+                }
+            }
+        }
+
+        if (empate) {
+            imprimirTabuleiro(tabuleiro);
+            printf("O jogo terminou em empate!\n");
+            atualizarRanking("Empate", "Empate");
+            break;
+        }
+    }
+
+    int jogarNovamente;
+    do {
+
+        printf("Deseja jogar novamente? (1 - Sim, 0 - Nao): ");
+        scanf("%d", &jogarNovamente);
+
+        if (jogarNovamente == 1) {
+            reiniciarJogo();
+            jogar();
+        } else {
+            printf("Obrigado por jogar! Ate a proxima.\n");
+            break;
+        }
+    } while (1);
+}
+
+void exibirSobre() {
+    printf("\n\n");
+    printf("\xDA");
+    for (int i = 0; i < 27; i++) {
+        printf("\xC4");
+    }
+    printf("\xBF\n");
+
+    printf("\xB3           Sobre           \xB3\n");
+
+    printf("\xC3");
+    for (int i = 0; i < 27; i++) {
+        printf("\xC4");
+    }
+    printf("\xB4\n");
+
+    printf("\xB3  Jogo da Velha em C       \xB3\n");
+    printf("\xB3  Desenvolvido por:        \xB3\n");
+    printf("\xB3  Ana ALice Cordeiro       \xB3\n");
+    printf("\xB3  Versao: 1.0              \xB3\n");
+
+    printf("\xC0");
+    for (int i = 0; i < 27; i++) {
+        printf("\xC4");
+    }
+    printf("\xD9\n");
+}
+
+int main() {
+    int opcao;
+
+    while (1) {
+        opcao = exibirMenuPrincipal();
+
+        switch (opcao) {
+            case 1:
+                jogar();
+                break;
+            case 2:
+                exibirRanking();
+                break;
+            case 3:
+                exibirSobre();
+                break;
+            case 4:
+                printf("Obrigado por jogar! Ate a proxima.\n");
+                return 0;
+            default:
+                printf("Opcao invalida! Tente novamente.\n");
+                break;
+        }
+    }
+}
